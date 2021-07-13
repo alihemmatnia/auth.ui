@@ -1,24 +1,49 @@
-import logo from './logo.svg';
-import './App.css';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from "react-router-dom";
+import ProtectedRoute from "./Route/ProtectedRoute";
+import Login from "./Account/Login";
+import Register from "./Account/Register";
+
+import Home from "./Home";
+import AddPost from "./Account/AddPost";
+import { ToastProvider } from "react-toast-notifications";
+import ForGotPassword from "./Account/ForGotPassword";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ToastProvider
+      placement="bottom-left"
+      autoDismiss={true}
+      autoDismissTimeout={3000}
+    >
+      <Router>
+        <Switch>
+          <Route exact path="/forgot" component={ForGotPassword}>
+            <ForGotPassword />
+          </Route>
+          <Route exact path="/login" component={Login}>
+            <Login />
+          </Route>
+          <Route exact path="/register" component={Register}>
+            <Register />
+          </Route>
+          <ProtectedRoute exact path="/" children={<Home />}>
+            <Home />
+          </ProtectedRoute>
+          <ProtectedRoute exact path="/add" children={<AddPost />}>
+            <AddPost />
+          </ProtectedRoute>
+
+          <Route path="*">
+            <Redirect from="/" to="/" />
+          </Route>
+        </Switch>
+      </Router>
+    </ToastProvider>
   );
 }
 

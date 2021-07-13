@@ -1,0 +1,25 @@
+h1 {
+  font-size: 60px;
+  margin: 0px;
+  padding: 0px;
+}
+h3 {
+  margin: 0px;
+  padding: 0px;
+  color: #999;
+}
+
+div.wrap {
+  width: 500px;
+  position: absolute;
+  direction: rtl;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  vertical-align: middle;
+}
+
+div.wrap div {
+  position: relative;
+  margin: 50px 0;
+}
