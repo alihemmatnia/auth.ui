@@ -5,16 +5,15 @@ import { useHistory } from "react-router";
 import { ToastProvider, useToasts } from "react-toast-notifications";
 
 const AddPost = () => {
+  const history = useHistory();
+  const { addToast } = useToasts();
   const [file, selectfile] = useState(null);
   const [title, settitle] = useState(null);
   const [content, setcontent] = useState(null);
-  const { addToast } = useToasts();
 
   const fileChange = (e) => {
-    console.log(e.target.files);
     selectfile(e.target.files[0]);
   };
-  const history = useHistory();
 
   const onSendPost = () => {
     if (title == null || content == null) {
@@ -26,13 +25,11 @@ const AddPost = () => {
       if (file != null) {
         formData.append("imgup", file);
       }
-      console.log(formData);
       ax.post("posts/", formData, {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       }).then((e) => {
         if (e.data.success) {
           addToast("با موفقیت پست جدید افزوده شد", { appearance: "success" });
-
           history.replace({
             pathname: "/",
           });
